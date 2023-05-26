@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>demo_3</title>
+  <meta charset="utf-8">
+  <!-- 引入fabric.js-->
+  <script src="https://cdn.bootcdn.net/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+</head>
+<body>
+<canvas id="canvas" width="800" height="600"></canvas>
+</body>
+<script>
+  <!-- 路径图形-->
+  const canvas = new fabric.Canvas('canvas');
+    const path = new fabric.Path('M 0 0 L 200 100 L 170 200 z');
+    path.set({ left: 120, top: 120, fill: 'red' });
+    canvas.add(path);
+</script>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>demo_3</title>
+  <meta charset="utf-8">
+  <!-- 引入fabric.js-->
+  <script src="https://cdn.bootcdn.net/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+</head>
+<body>
+<canvas id="canvas" width="800" height="600"></canvas>
+</body>
+<script>
+<!--  引入图片-->
+  const canvas = new fabric.Canvas('canvas');
+  fabric.Image.fromURL('./兔子.png',(png)=>{
+    console.log(png,'png')
+    // 缩放图片
+    png.scale(0.1);
+    // 旋转图片
+    png.rotate(45);
+    // 移动图片
+    png.set({left: 100, top: 100});
+
+    canvas.add(png);
+  })
+</script>
+</html>

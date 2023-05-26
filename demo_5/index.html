@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>demo_3</title>
+  <meta charset="utf-8">
+  <!-- 引入fabric.js-->
+  <script src="https://cdn.bootcdn.net/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+</head>
+<body style="display: flex; justify-content: center; align-items: center; overflow: hidden">
+<canvas id="canvas" width="1000" height="600"></canvas>
+</body>
+<script>
+  <!-- svg图像引入-->
+
+  const canvas = new fabric.Canvas('canvas');
+  fabric.loadSVGFromURL('./爱心.svg', (objects, options) => {
+    const obj = fabric.util.groupSVGElements(objects, options);
+    const imgWidth = obj.width;
+    const imgHeight = obj.height;
+const scaleFactor = 0.5;
+    // 计算缩放后的图片中心位置
+    const scaledImgWidth = imgWidth * scaleFactor;
+    const scaledImgHeight = imgHeight * scaleFactor;
+    const scaledImgCenterX = canvas.width / 2 - scaledImgWidth / 2;
+    const scaledImgCenterY = canvas.height / 2 - scaledImgHeight / 2;
+
+    // 设置图片对象的属性和样式
+    obj.set({
+      originX: 'center',
+      originY: 'center',
+      left: scaledImgCenterX,
+      top: scaledImgCenterY,
+      scaleX: scaleFactor,
+      scaleY: scaleFactor
+    });
+    canvas.add(obj);
+    animate(obj);
+  });
+  const animate = (obj) => {
+    obj.animate({
+      scaleX: 0.8,
+      scaleY: 0.8
+    }, {
+      onChange: canvas.renderAll.bind(canvas),
+      duration: 1000,
+      easing: fabric.util.ease.easeInOutCubic,
+      onComplete: ()=>{
+        obj.animate({
+          scaleX: 0.5,
+          scaleY: 0.5
+        }, {
+          onChange: canvas.renderAll.bind(canvas),
+          duration: 1000,
+          easing: fabric.util.ease.easeInOutCubic,
+          onComplete: ()=>animate(obj)
+        });
+
+      }
+    });
+  };
+  const orbit = new fabric.Ellipse({
+    rx: 26 + 90,
+    ry: 26,
+    angle: 30,
+    left: canvas.getWidth() / 2-135,
+    top: canvas.getHeight() / 2-110,
+    fill: "",
+    stroke: "rgba(0,192,255,0.5)",
+    hasBorders: false,
+    hasControls: false,
+    lockMovementX: true,
+    lockMovementY: true,
+  });
+  const orbit2 = new fabric.Ellipse({
+    rx: 26 + 90,
+    ry: 26,
+    angle: -30,
+    left: canvas.getWidth() / 2-150,
+    top: canvas.getHeight() / 2,
+    fill: "",
+    stroke: "rgba(0,192,255,0.5)",
+    hasBorders: false,
+    hasControls: false,
+    lockMovementX: true,
+    lockMovementY: true,
+  });
+    canvas.add(orbit);
+    canvas.add(orbit2);
+</script>
+</html>
